@@ -19,13 +19,15 @@ This project demonstrates various Spring Framework features with a Wicket-Bootst
 
 ##Running / Deployment##
 
-The build.gradle will do the work for you to create a WAR and an exploded WAR in **/build/exploded** by simply typing
+The build.gradle will do the work for you to create a WAR in **/build/libs** and an exploded WAR in **/build/exploded** by simply typing
 
-```$ gradle war
+```
+$ gradle war
+```
 
 or *$ ./gradlew war* if using the wrapper.
 
-##Reference Repositories##
+##Referenced Repositories##
 
 Repositories with code which was referenced or used in this project include:
 
