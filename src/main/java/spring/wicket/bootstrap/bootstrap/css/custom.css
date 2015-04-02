@@ -1,0 +1,106 @@
+@CHARSET "UTF-8";
+
+/* Jumbton Subhead (non-homepage)
+------------------------- */
+.subhead {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.subhead h1 {
+    font-size: 60px;
+}
+
+.subhead p {
+    margin-bottom: 20px;
+}
+
+.subhead .navbar {
+    display: none;
+}
+
+.jumbotron.subhead {
+    margin-bottom: 0px;
+}
+
+/* Code ------------------------------------- */
+
+.demo-code {
+    color: #CD5A5A;
+    display: block;
+    padding: 10px;
+    margin: 30px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    background-color: #ecf0f1;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+
+blockquote {
+    margin: 20px 0;
+    font-size: 18.75px;
+}
+
+/* Sidebar ------------------------------------- */
+
+.col-lg-3.bs-docs-sidebar {
+    margin-top: 50px;
+}
+
+.bs-docs-sidenav.affix {
+    top: 120px;
+}
+
+.affix {
+    position: fixed;
+}
+
+/* Footer Desktop ----------------------------- */
+.footer {
+    margin-top: 0;
+    padding: 70px 0;
+    margin-top: 70px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+}
+
+#footer-tag {
+    font-size: 75%;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Tablet to Portable ------------------------- */
+@media (max-width: 768px) {
+
+    /* Sidenav */
+    .bs-docs-sidenav {
+        width: auto;
+        margin-bottom: 20px;
+    }
+    .bs-docs-sidenav.affix {
+        position: static;
+        width: auto;
+        top: 0;
+    }
+
+    .footer {
+        margin: auto;
+        padding: 20px 0;
+    }
+    .footer p {
+        margin-bottom: 9px;
+        margin-top: 30px;
+    }
+
+    .row {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

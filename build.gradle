@@ -1,0 +1,106 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+task printVersion << {
+    println version + "------------------------------"
+}
+
+sourceSets {
+    main {
+        version = theVersion
+        java.srcDirs = ['src/main/java']
+        resources.srcDirs = ['src/main/resources', 'src/main/java']
+    }
+    all {
+        resources {
+            exclude 'config.properties'
+        }
+    }
+}
+
+bootRun {
+    addResources = false
+}
+
+task explodedWar(type: Copy) {
+    into "$buildDir/exploded"
+    with war
+}
+
+tasks.withType(War).all { War war ->
+    war.doFirst {
+        String warType = war.extension
+        if (war.classifier) warType = war.classifier
+        String fileName = "config.properties"
+        ant.copy(file: "${project.rootDir}/src/main/resources/${fileName}",
+                tofile: "${war.temporaryDir}/${fileName}")
+
+        ant.propertyfile(file: "${war.temporaryDir}/${fileName}") {
+            if (project.hasProperty('deploy')) {
+                entry(key: "configuration.type", value: "DEPLOYMENT")
+            } else {
+                entry(key: "configuration.type", value: "DEVELOPMENT")
+            }
+            entry(key: "version", value: project.version)
+            entry(key: "bootstrap.fix.version", value: project.version)
+            entry(key: "build.date", value: new Date())
+        }
+
+        String intoPath = "${warType}"
+        war.from(war.temporaryDir) {
+            include fileName
+            intoPath = "WEB-INF/classes"
+            into(intoPath)
+        }
+
+    }
+}
+
+war {
+    version = version
+    doLast
+            {
+                explodedWar.execute()
+            }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile(
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework:spring-web:4.1.6.RELEASE",
+            "org.apache.wicket:wicket-spring:7.0.0-M5",
+            "de.agilecoders.wicket:wicket-bootstrap-core:0.10.0",
+            "de.agilecoders.wicket:wicket-bootstrap-extensions:0.10.0",
+            "de.agilecoders.wicket:wicket-bootstrap-themes:0.10.0",
+            "de.agilecoders.wicket:wicket-bootstrap-samples:0.10.0",
+            "org.slf4j:slf4j-log4j12:1.7.7",
+    )
+    providedCompile(
+            "org.springframework.boot:spring-boot-starter-tomcat",
+    )
+
+    testCompile(
+            "org.springframework.boot:spring-boot-starter-test",
+    )
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-logging'
+}
