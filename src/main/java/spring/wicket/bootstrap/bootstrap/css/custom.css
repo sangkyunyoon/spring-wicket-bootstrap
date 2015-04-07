@@ -45,6 +45,15 @@ blockquote {
     font-size: 18.75px;
 }
 
+/* Content ------------------------------------- */
+
+p.nixmash-link {
+    border-bottom: 1px dashed rgb(170, 170, 170);
+    margin-bottom: 15px;
+    font-style: italic;
+    padding-bottom: 4px;
+}
+
 /* Sidebar ------------------------------------- */
 
 .col-lg-3.bs-docs-sidebar {

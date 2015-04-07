@@ -10,7 +10,6 @@ import spring.wicket.bootstrap.services.TextService;
  * sample page to show mounting and spring integration
  *
  * @author Stefan Kloe
- *
  */
 
 public class DemoPage extends BasePage {
@@ -22,15 +21,18 @@ public class DemoPage extends BasePage {
     @SpringBean
     private PropertyClass propertyClass;
 
-
     public DemoPage(PageParameters parameters) {
         super(parameters);
 
-        add(new Label("propertyItem", String.format("PropertyClass.Color from external resource file: %s", propertyClass.getColor())));
-
          /* spring integration in wicket component */
-        add(new Label("textService", String.format("From Spring Example Service: %s",
-                textService.getText())));
+        add(new Label("textService",
+                String.format("From Spring Service: %s",
+                        textService.getText())));
+
+        add(new Label("propertyItem",
+                String.format("PropertyClass.Color from external file: %s",
+                        propertyClass.getColor())));
+
     }
 
     @Override

@@ -41,7 +41,6 @@ import spring.wicket.bootstrap.bootstrap.css.UtilityCssResourceReference;
 import spring.wicket.bootstrap.bootstrap.js.ApplicationJavaScript;
 import spring.wicket.bootstrap.pages.DemoPage;
 import spring.wicket.bootstrap.pages.HomePage;
-import spring.wicket.bootstrap.services.TextService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,6 +55,8 @@ import java.util.Properties;
  *
  * @author Stefan Kloe
  */
+
+
 @Component
 @EnableAutoConfiguration
 @ComponentScan
@@ -66,9 +67,6 @@ public class WicketApplication extends WebApplication {
             .getLogger(WicketApplication.class);
 
     @Autowired
-    private TextService exampleService;
-
-    @Autowired
     private ApplicationContext applicationContext;
 
     /**
@@ -77,24 +75,8 @@ public class WicketApplication extends WebApplication {
      * @param args
      */
     public static void main(String[] args) {
-        log.debug("IN WICKETWEBAPPLICATION MAIN --------------------------------------------------");
+        log.debug("IN WICKETAPPLICATION MAIN --------------------------------------------------");
         SpringApplication.run(WicketApplication.class, args);
-
-    }
-
-    public WicketApplication() {
-        super();
-        log.debug("IN WICKETWEBAPPLICATION CONSTRUCTOR --------------------------------------------------");
-        properties = loadProperties();
-        setConfigurationType(RuntimeConfigurationType.valueOf(properties.getProperty("configuration.type")));
-    }
-
-    /**
-     * provides page for default request
-     */
-    @Override
-    public Class<? extends Page> getHomePage() {
-        return HomePage.class;
     }
 
     /**
@@ -108,19 +90,20 @@ public class WicketApplication extends WebApplication {
      */
     @Override
     protected void init() {
-        log.debug("IN WICKETWEBAPPLICATION INIT --------------------------------------------------");
 
         super.init();
         getComponentInstantiationListeners().add(
                 new SpringComponentInjector(this, applicationContext));
+
         mountPage("/demos.html", DemoPage.class);
-        log.debug(String.format("EXAMPLE SPRING SERVICE TEXT: %s", exampleService.getText()));
 
         getApplicationSettings().setUploadProgressUpdatesEnabled(true);
 
         // deactivate ajax debug mode
         getDebugSettings().setAjaxDebugModeEnabled(false);
 
+
+        log.debug("IN WICKETWEBAPPLICATION INIT --------------------------------------------------");
 
         setHeaderResponseDecorator(new FilteringHeaderResponseDecorator());
         configureBootstrap();
@@ -146,6 +129,18 @@ public class WicketApplication extends WebApplication {
             WicketSource.configure(this);
     }
 
+    public WicketApplication() {
+        super();
+        log.debug("IN WICKETWEBAPPLICATION CONSTRUCTOR --------------------------------------------------");
+        properties = loadProperties();
+        setConfigurationType(RuntimeConfigurationType.valueOf(properties.getProperty("configuration.type")));
+    }
+
+
+    @Override
+    public Class<? extends Page> getHomePage() {
+        return HomePage.class;
+    }
 
     /**
      * configure all resource bundles (css and js)
