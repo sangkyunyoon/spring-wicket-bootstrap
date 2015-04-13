@@ -12,7 +12,7 @@ import spring.wicket.bootstrap.pages.DemoPage;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { WebInitializer.class,
-		WicketApplication.class })
+		WicketApplication.class, SpringConfiguration.class })
 public class WicketApplicationTest {
 
 	@Autowired

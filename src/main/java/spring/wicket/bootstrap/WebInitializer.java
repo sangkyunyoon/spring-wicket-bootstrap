@@ -26,11 +26,8 @@ public class WebInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext sc) throws ServletException {
         FilterRegistration filter = sc.addFilter("wicket-filter", WicketFilter.class);
-//        filter.setInitParameter("filter-name","spring-wicket-boot");
         filter.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
         filter.setInitParameter(PARAM_APP_BEAN, "wicketApplication");
-        // This line is the only surprise when comparing to the equivalent
-        // web.xml. Without some initialization seems to be missing.
         filter.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/*");
         filter.addMappingForUrlPatterns(null, false, "/*");
         log.debug("IN WEBINITIALIZER --------------------------------------------------");

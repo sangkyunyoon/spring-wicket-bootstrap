@@ -37,7 +37,7 @@
     background-color: #ecf0f1;
     border: 1px solid #cccccc;
     border-radius: 4px;
-    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 blockquote {
@@ -52,6 +52,13 @@ p.nixmash-link {
     margin-bottom: 15px;
     font-style: italic;
     padding-bottom: 4px;
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    top: -70px;
+    visibility: hidden;
 }
 
 /* Sidebar ------------------------------------- */
@@ -92,6 +99,7 @@ p.nixmash-link {
         width: auto;
         margin-bottom: 20px;
     }
+
     .bs-docs-sidenav.affix {
         position: static;
         width: auto;
@@ -102,6 +110,7 @@ p.nixmash-link {
         margin: auto;
         padding: 20px 0;
     }
+
     .footer p {
         margin-bottom: 9px;
         margin-top: 30px;
